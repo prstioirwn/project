@@ -4,367 +4,498 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prasetio Tri Irawan - Portofolio</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration for Custom Design System -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cozy: {
+                            bg: '#F4F4F5', // Soft gray background
+                            card: '#FFFFFF',
+                            text: '#18181B', // Zinc 900
+                            muted: '#71717A', // Zinc 500
+                            accent: '#2563EB', // Blue 600
+                        }
+                    },
+                    borderRadius: {
+                        '4xl': '2rem', // Large rounded corners for Bento cards
+                        '5xl': '2.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Hide scrollbar for clean aesthetic but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        body { background-color: #F4F4F5; }
+    </style>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
+<body class="min-h-screen font-sans text-cozy-text antialiased selection:bg-cozy-accent selection:text-white pb-20 relative">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="#home" class="font-bold text-2xl text-blue-700 tracking-tighter">PTI.</a>
-                </div>
-                
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="desktop-link text-sm font-medium transition-colors hover:text-blue-600 text-blue-700 border-b-2 border-blue-600">Beranda</a>
-                    <a href="#about" class="desktop-link text-sm font-medium transition-colors hover:text-blue-600 text-slate-600">Profil</a>
-                    <a href="#experience" class="desktop-link text-sm font-medium transition-colors hover:text-blue-600 text-slate-600">Pengalaman</a>
-                    <a href="#projects" class="desktop-link text-sm font-medium transition-colors hover:text-blue-600 text-slate-600">Proyek</a>
-                    <a href="#skills" class="desktop-link text-sm font-medium transition-colors hover:text-blue-600 text-slate-600">Keahlian</a>
-                </div>
+    <!-- Language Toggle Button -->
+    <button id="lang-toggle-btn" class="fixed top-6 right-4 sm:right-8 z-[60] bg-white/90 backdrop-blur-xl border border-gray-200 shadow-sm rounded-full px-4 py-2.5 font-bold text-sm text-cozy-text hover:bg-gray-50 hover:scale-105 transition-all flex items-center gap-2">
+        <i data-lucide="globe" class="w-4 h-4 text-cozy-accent"></i> 
+        <span id="lang-label">ID</span>
+    </button>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-600 focus:outline-none">
-                        <i data-lucide="menu"></i>
-                    </button>
-                </div>
+    <!-- Floating Navigation Pill -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[85%] sm:w-[90%] max-w-2xl bg-white/80 backdrop-blur-xl border border-white shadow-sm rounded-full px-4 py-3 transition-all duration-300">
+        <div class="flex justify-between items-center">
+            <a href="#home" class="font-extrabold text-xl tracking-tight pl-2">PTI.</a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-1 bg-cozy-bg/50 p-1 rounded-full">
+                <a href="#home" data-i18n="nav_home" class="desktop-link px-4 py-2 text-sm font-semibold rounded-full bg-white shadow-sm text-cozy-text transition-all">Beranda</a>
+                <a href="#about" data-i18n="nav_profile" class="desktop-link px-4 py-2 text-sm font-semibold rounded-full text-cozy-muted hover:text-cozy-text transition-all">Profil</a>
+                <a href="#experience" data-i18n="nav_exp" class="desktop-link px-4 py-2 text-sm font-semibold rounded-full text-cozy-muted hover:text-cozy-text transition-all">Pengalaman</a>
+                <a href="#projects" data-i18n="nav_proj" class="desktop-link px-4 py-2 text-sm font-semibold rounded-full text-cozy-muted hover:text-cozy-text transition-all">Proyek</a>
+                <a href="#skills" data-i18n="nav_skills" class="desktop-link px-4 py-2 text-sm font-semibold rounded-full text-cozy-muted hover:text-cozy-text transition-all">Keahlian</a>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden bg-cozy-bg p-2 rounded-full text-cozy-text hover:bg-gray-200 transition-colors">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
         </div>
 
-        <!-- Mobile Nav -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-lg absolute w-full">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="mobile-link block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-blue-50 text-blue-700">Beranda</a>
-                <a href="#about" class="mobile-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">Profil</a>
-                <a href="#experience" class="mobile-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">Pengalaman</a>
-                <a href="#projects" class="mobile-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">Proyek</a>
-                <a href="#skills" class="mobile-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">Keahlian</a>
-            </div>
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 mt-4 w-full bg-white border border-gray-100 shadow-xl rounded-3xl overflow-hidden p-2 flex-col gap-1">
+            <a href="#home" data-i18n="nav_home" class="mobile-link px-5 py-3 rounded-2xl bg-cozy-bg text-cozy-text font-semibold">Beranda</a>
+            <a href="#about" data-i18n="nav_profile" class="mobile-link px-5 py-3 rounded-2xl text-cozy-muted hover:bg-cozy-bg hover:text-cozy-text font-medium">Profil</a>
+            <a href="#experience" data-i18n="nav_exp" class="mobile-link px-5 py-3 rounded-2xl text-cozy-muted hover:bg-cozy-bg hover:text-cozy-text font-medium">Pengalaman</a>
+            <a href="#projects" data-i18n="nav_proj" class="mobile-link px-5 py-3 rounded-2xl text-cozy-muted hover:bg-cozy-bg hover:text-cozy-text font-medium">Proyek</a>
+            <a href="#skills" data-i18n="nav_skills" class="mobile-link px-5 py-3 rounded-2xl text-cozy-muted hover:bg-cozy-bg hover:text-cozy-text font-medium">Keahlian</a>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-16">
+    <!-- Main Content (Bento Grid) -->
+    <main class="pt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
-        <!-- HERO SECTION -->
-        <section id="home" class="min-h-[90vh] flex items-center bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-10">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6 order-2 lg:order-1">
-                        <div class="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm tracking-wide">
-                            Business Analyst & QA Engineer
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
-                            Halo, Saya <br/>
-                            <span class="text-blue-600">Prasetio Tri Irawan</span>
-                        </h1>
-                        <p class="text-lg text-slate-600 leading-relaxed max-w-lg">
-                            Memastikan kualitas, kemudahan pengguna, dan kepatuhan regulasi dalam sistem standarisasi operasional maritim.
-                        </p>
-                        <div class="flex flex-wrap gap-4 pt-4">
-                            <a href="#about" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md flex items-center gap-2">
-                                <i data-lucide="user" class="w-5 h-5"></i> Tentang Saya
-                            </a>
-                            <a href="https://www.linkedin.com/in/prasetio-irawan/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white text-blue-700 border border-blue-200 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-sm flex items-center gap-2">
-                                <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn
-                            </a>
-                        </div>
-                        
-                        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-8 text-sm text-slate-500">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="map-pin" class="w-4 h-4 text-blue-500"></i> Jakarta, Indonesia
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="mail" class="w-4 h-4 text-blue-500"></i> prasetioirawan6@gmail.com
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
-                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                            <div class="absolute inset-0 bg-blue-200 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-                            <div class="absolute top-10 right-10 w-20 h-20 bg-cyan-200 rounded-full blur-2xl opacity-60"></div>
-                            
-                            <!-- Updated Profile Image Container -->
-                            <div class="relative w-full h-full border-8 border-white shadow-2xl rounded-2xl overflow-hidden flex items-center justify-center">
-                                <!-- User Uploaded Image -->
-                                <img src="assets/Prasetio Tri Irawan.png" alt="Foto Profil Prasetio Tri Irawan" class="w-full h-full object-cover">
-                            </div>
-                            
-                            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
-                                <div class="bg-green-100 p-2 rounded-full text-green-600">
-                                    <i data-lucide="briefcase" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-slate-500 font-medium">Pengalaman</p>
-                                    <p class="font-bold text-slate-800">3+ Tahun</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROFIL SECTION -->
-        <section id="about" class="py-20 bg-white">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-slate-900 inline-flex items-center gap-2">
-                        <i data-lucide="user" class="text-blue-600 w-8 h-8"></i> Profil Profesional
-                    </h2>
-                    <div class="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        <!-- HERO GRID -->
+        <section id="home" class="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-32">
+            
+            <!-- Intro Card -->
+            <div class="lg:col-span-8 bg-white rounded-4xl p-8 md:p-14 border border-gray-100 shadow-sm flex flex-col justify-center relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i data-lucide="sparkles" class="w-32 h-32"></i>
                 </div>
                 
-                <div class="bg-slate-50 p-8 md:p-10 rounded-2xl shadow-sm border border-slate-100 text-lg text-slate-700 leading-relaxed">
-                    <p>
-                        Sebagai <strong>Business Analyst</strong> dalam sistem standarisasi di industri maritim dengan fokus pada kualitas, kemudahan pengguna, dan kepatuhan regulasi. Memiliki keahlian dalam perencanaan fitur dan integrasi menggunakan metode <strong>Business Process Modelling</strong> untuk standarisasi operasional maritim dan stabilitas sistem.
-                    </p>
-                    <p class="mt-4">
-                        Berkomitmen pada detail analisis kebutuhan dan sinergi tim untuk stabilitas serta keandalan sistem dalam menghadapi berbagai kondisi operasional. Berbekal pengalaman kuat sebagai <strong>QA Engineer</strong>, saya memastikan setiap spesifikasi bisnis memiliki kriteria yang jelas, terukur, dan dapat diuji.
-                    </p>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold w-max mb-8 bg-gray-50 text-cozy-text">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Available for work
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
+                    <span data-i18n="hero_hello">Halo, Saya</span> <br/>
+                    <span class="text-cozy-accent">Prasetio Tri Irawan</span>
+                </h1>
+                
+                <p data-i18n="hero_desc" class="text-lg md:text-xl text-cozy-muted leading-relaxed max-w-xl mb-10 font-medium">
+                    Saya sangat bersemangat dan berdedikasi terhadap pekerjaan saya.
+                </p>
+                
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#about" class="px-8 py-4 bg-cozy-text text-white font-bold rounded-full hover:scale-105 hover:shadow-lg transition-all flex items-center gap-2">
+                        <span data-i18n="btn_about">Tentang Saya</span> <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/prasetio-irawan/" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white border-2 border-gray-200 text-cozy-text font-bold rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-[#0A66C2]">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Image Card -->
+            <div class="lg:col-span-4 bg-white rounded-4xl border border-gray-100 shadow-sm overflow-hidden relative min-h-[400px]">
+                <img src="assets/Prasetio Tri Irawan.png" alt="Foto Profil Prasetio" class="absolute inset-0 w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                
+                <!-- Floating Badge -->
+                <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-lg border border-white flex items-center gap-4">
+                    <div class="bg-cozy-accent p-3 rounded-2xl text-white">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-cozy-muted font-bold uppercase tracking-wider">Business Analyst & QA</p>
+                        <p data-i18n="exp_years" class="font-extrabold text-cozy-text text-lg">3+ Tahun Pengalaman</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- PENGALAMAN SECTION -->
-        <section id="experience" class="py-20 bg-slate-50">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-slate-900 inline-flex items-center gap-2">
-                        <i data-lucide="briefcase" class="text-blue-600 w-8 h-8"></i> Pengalaman Kerja
-                    </h2>
-                    <div class="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        <!-- INFO GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Location & Contact (Small Cards) -->
+            <div class="col-span-1 flex flex-col gap-6">
+                <div class="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex items-center gap-4 hover:-translate-y-1 transition-transform">
+                    <div class="bg-blue-50 p-4 rounded-2xl text-cozy-accent">
+                        <i data-lucide="map-pin" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <p data-i18n="loc_title" class="text-sm text-cozy-muted font-semibold">Lokasi</p>
+                        <p class="text-lg font-bold text-cozy-text">Jakarta, Indonesia</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-4xl border border-gray-100 shadow-sm flex items-center gap-4 hover:-translate-y-1 transition-transform">
+                    <div class="bg-blue-50 p-4 rounded-2xl text-cozy-accent">
+                        <i data-lucide="mail" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-cozy-muted font-semibold">Email</p>
+                        <a href="mailto:prasetioirawan6@gmail.com" class="text-base font-bold text-cozy-text hover:text-cozy-accent break-all">prasetioirawan6@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section (Large Card) -->
+            <section id="about" class="col-span-1 md:col-span-1 lg:col-span-2 bg-cozy-text text-white p-8 md:p-12 rounded-4xl shadow-sm relative overflow-hidden scroll-mt-32">
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 text-white/5">
+                    <i data-lucide="quote" class="w-64 h-64"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i data-lucide="user" class="text-gray-400"></i> <span data-i18n="prof_title">Profil Profesional</span>
+                </h2>
+                <div class="text-lg md:text-xl text-gray-300 leading-relaxed font-medium space-y-4 relative z-10">
+                    <p data-i18n="prof_desc_1">
+                        Sebagai <strong class="text-white">Business Analyst</strong> dalam sistem standarisasi di industri maritim dengan fokus pada kualitas, kemudahan pengguna, dan kepatuhan regulasi. Memiliki keahlian dalam perencanaan fitur dan integrasi menggunakan metode <strong class="text-white">Business Process Modelling</strong> untuk standarisasi operasional maritim dan stabilitas sistem.
+                    </p>
+                    <p data-i18n="prof_desc_2">
+                        Berkomitmen pada detail analisis kebutuhan dan sinergi tim. Berbekal pengalaman kuat sebagai <strong class="text-white">QA Engineer</strong>, saya memastikan setiap spesifikasi bisnis memiliki kriteria yang jelas, terukur, dan dapat diuji.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="bg-white p-8 md:p-14 rounded-4xl border border-gray-100 shadow-sm scroll-mt-32">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <h2 data-i18n="exp_title" class="text-4xl font-extrabold text-cozy-text tracking-tight mb-2">Pengalaman Kerja</h2>
+                    <p data-i18n="exp_subtitle" class="text-cozy-muted font-medium text-lg">Riwayat karir profesional saya.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-2xl hidden md:block">
+                    <i data-lucide="briefcase" class="w-8 h-8 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Job 1 -->
+                <div class="p-6 md:p-8 rounded-3xl bg-cozy-bg border border-gray-200 hover:border-gray-300 hover:bg-gray-100 transition-all group">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-cozy-text group-hover:text-cozy-accent transition-colors">Business Analyst</h3>
+                            <h4 class="text-lg font-semibold text-cozy-muted flex items-center gap-2 mt-1">
+                                <i data-lucide="building-2" class="w-5 h-5"></i> Pelindo Solusi Digital <span data-i18n="contract_1">(Kontrak)</span>
+                            </h4>
+                        </div>
+                        <span data-i18n="job1_date" class="px-4 py-2 bg-white border border-gray-200 text-cozy-text font-bold rounded-full text-sm shadow-sm inline-block w-max">
+                            Agustus 2025 - Saat ini
+                        </span>
+                    </div>
+                    <ul class="space-y-3 text-cozy-muted font-medium">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-cozy-accent shrink-0 mt-0.5"></i> <span data-i18n="job1_desc1">Bertanggung jawab dalam merancang dan mendefinisikan kebutuhan bisnis untuk sistem standarisasi pelayanan kapal (Phinnisi) di lingkungan operasional maritim atau operasional pelayanan kapal.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-cozy-accent shrink-0 mt-0.5"></i> <span data-i18n="job1_desc2">Menjembatani komunikasi antara pemangku kepentingan bisnis dan tim teknis untuk memastikan setiap fitur baru pada sistem Phinnisi sesuai dengan regulasi kepelabuhanan dan standar operasional maritim.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-cozy-accent shrink-0 mt-0.5"></i> <span data-i18n="job1_desc3">Melakukan analisis mendalam terhadap alur kerja pelayanan kapal guna menghasilkan dokumentasi teknis dan desain proses bisnis yang optimal dalam bentuk Product Requirement Document.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-cozy-accent shrink-0 mt-0.5"></i> <span data-i18n="job1_desc4">Memanfaatkan latar belakang sebagai QA Engineer untuk memastikan bahwa setiap spesifikasi bisnis yang disusun memiliki kriteria penerimaan (acceptance criteria) yang jelas, terukur, dan dapat diuji secara teknis.</span></li>
+                    </ul>
                 </div>
 
-                <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                <!-- Job 2 -->
+                <div class="p-6 md:p-8 rounded-3xl bg-white border border-gray-200 hover:border-gray-300 transition-all group">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-cozy-text group-hover:text-cozy-accent transition-colors">Software QA Engineer</h3>
+                            <h4 class="text-lg font-semibold text-cozy-muted flex items-center gap-2 mt-1">
+                                <i data-lucide="building-2" class="w-5 h-5"></i> Pelindo Solusi Digital <span data-i18n="contract_2">(Kontrak)</span>
+                            </h4>
+                        </div>
+                        <span data-i18n="job2_date" class="px-4 py-2 bg-gray-50 border border-gray-200 text-gray-500 font-bold rounded-full text-sm inline-block w-max">
+                            Agustus 2022 - Agustus 2025
+                        </span>
+                    </div>
+                    <ul class="space-y-3 text-cozy-muted font-medium">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job2_desc1">Berperan dalam mengeksekusi dan melaporkan hasil pengujian proyek pada tahap SIT (System Integration Testing) dan UAT (User Acceptance Testing).</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job2_desc2">Membangun, memelihara, dan menjalankan skrip Automation Test menggunakan framework Playwright untuk mempercepat siklus pengujian.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job2_desc3">Berhasil menganalisis dan memeriksa validitas data secara mendetail menggunakan berbagai testing tools guna mengidentifikasi bug atau ketidaksesuaian sistem terhadap skenario test case.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job2_desc4">Melakukan eskalasi laporan bug dengan data pendukung yang komprehensif secara cepat demi memastikan proyek selesai tepat waktu sesuai target.</span></li>
+                    </ul>
                     
-                    <!-- Job 1 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i data-lucide="briefcase" class="w-4 h-4"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
-                                <h3 class="text-xl font-bold text-slate-900">Business Analyst</h3>
-                                <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mt-2 sm:mt-0 inline-block w-fit">Agustus 2025 - Saat ini</span>
-                            </div>
-                            <h4 class="text-md font-semibold text-slate-600 mb-4 flex items-center gap-2">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Pelindo Solusi Digital (Kontrak)
-                            </h4>
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Bertanggung jawab merancang dan mendefinisikan kebutuhan bisnis untuk sistem standarisasi pelayanan kapal (Phinnisi).</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Menjembatani komunikasi pemangku kepentingan bisnis dan tim teknis untuk kepatuhan regulasi kepelabuhanan.</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Melakukan analisis mendalam alur kerja guna menghasilkan PRD (Product Requirement Document).</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Memastikan setiap spesifikasi bisnis memiliki acceptance criteria yang jelas dan dapat diuji secara teknis.</span></li>
-                            </ul>
-                        </div>
+                    <!-- Tombol Link Video Automation -->
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <button id="open-video-btn" class="inline-flex items-center gap-3 px-6 py-3 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100 rounded-full font-bold transition-all shadow-sm w-max group/btn">
+                            <i data-lucide="play-circle" class="w-5 h-5 group-hover/btn:scale-110 transition-transform"></i>
+                            <span data-i18n="btn_video">Contoh Penerapan Automation Test pada Phinnisi</span>
+                        </button>
                     </div>
+                </div>
 
-                    <!-- Job 2 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i data-lucide="code" class="w-4 h-4"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
-                                <h3 class="text-xl font-bold text-slate-900">Software QA Engineer</h3>
-                                <span class="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full mt-2 sm:mt-0 inline-block w-fit">Agustus 2022 - Agustus 2025</span>
-                            </div>
-                            <h4 class="text-md font-semibold text-slate-600 mb-4 flex items-center gap-2">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Pelindo Solusi Digital (Kontrak)
+                <!-- Job 3 -->
+                <div class="p-6 md:p-8 rounded-3xl bg-white border border-gray-200 hover:border-gray-300 transition-all group">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-cozy-text group-hover:text-cozy-accent transition-colors">Quality Assurance</h3>
+                            <h4 class="text-lg font-semibold text-cozy-muted flex items-center gap-2 mt-1">
+                                <i data-lucide="building-2" class="w-5 h-5"></i> Bina Artha Ventura <span data-i18n="contract_3">(Kontrak)</span>
                             </h4>
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Mengeksekusi dan melaporkan hasil pengujian proyek pada tahap SIT dan UAT.</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Membangun dan menjalankan skrip Automation Test menggunakan framework Playwright.</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Menganalisis validitas data secara mendetail untuk mengidentifikasi bug/ketidaksesuaian.</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Eskalasi laporan bug dengan data komprehensif untuk memastikan proyek selesai tepat waktu.</span></li>
-                            </ul>
                         </div>
+                        <span data-i18n="job3_date" class="px-4 py-2 bg-gray-50 border border-gray-200 text-gray-500 font-bold rounded-full text-sm inline-block w-max">
+                            Maret 2022 - Agustus 2022
+                        </span>
                     </div>
-
-                    <!-- Job 3 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
-                                <h3 class="text-xl font-bold text-slate-900">Quality Assurance</h3>
-                                <span class="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full mt-2 sm:mt-0 inline-block w-fit">Maret 2022 - Agustus 2022</span>
-                            </div>
-                            <h4 class="text-md font-semibold text-slate-600 mb-4 flex items-center gap-2">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Bina Artha Ventura (Kontrak)
-                            </h4>
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Melakukan analisis dan verifikasi data manual dengan ketelitian untuk menjamin akurasi laporan.</span></li>
-                                <li class="flex gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i> <span>Menyusun dokumentasi temuan error atau ketidaksesuaian data berdasarkan skenario pengujian.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
+                    <ul class="space-y-3 text-cozy-muted font-medium">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job3_desc1">Melakukan analisis dan verifikasi data manual dengan ketelitian untuk menjamin akurasi laporan.</span></li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"></i> <span data-i18n="job3_desc2">Menyusun dokumentasi temuan error atau ketidaksesuaian data berdasarkan skenario pengujian yang telah ditetapkan.</span></li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- PROYEK SECTION -->
-        <section id="projects" class="py-20 bg-white">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-slate-900 inline-flex items-center gap-2">
-                        <i data-lucide="external-link" class="text-blue-600 w-8 h-8"></i> Proyek Unggulan
-                    </h2>
-                    <div class="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        <!-- PROJECTS SECTION (Combined Card & Dribbble Grid) -->
+        <section id="projects" class="bg-white p-8 md:p-14 rounded-4xl border border-gray-100 shadow-sm scroll-mt-32">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- Left: Sticky Header -->
+                <div class="lg:w-1/4">
+                    <div class="sticky top-32">
+                        <h2 data-i18n="proj_title" class="text-4xl md:text-5xl font-extrabold text-cozy-text mb-6 tracking-tight leading-tight">Proyek<br>Unggulan</h2>
+                        <button class="inline-flex items-center justify-center px-8 py-3 bg-cozy-text text-white font-bold rounded-full hover:scale-105 transition-transform shadow-sm">
+                            <span data-i18n="btn_see_all">Lihat Semua</span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl overflow-hidden shadow-sm border border-blue-100">
-                    <div class="grid md:grid-cols-5 gap-0">
-                        <div class="md:col-span-3 p-8 md:p-12">
-                            <div class="inline-block px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-xs font-bold tracking-wider mb-4 uppercase">
+                <!-- Right: Content Area -->
+                <div class="lg:w-3/4 flex flex-col gap-12">
+                    
+                    <!-- 1. Detailed Description Card -->
+                    <div class="flex flex-col xl:flex-row rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                        
+                        <!-- Bagian Kiri (Putih/Abu Muda) -->
+                        <div class="xl:w-[55%] bg-[#F8FAFC] p-8 md:p-10">
+                            <span data-i18n="proj_tag_psn" class="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full uppercase tracking-wider mb-6">
                                 Proyek Strategis Nasional
-                            </div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-2">Phinnisi</h3>
-                            <h4 class="text-lg font-medium text-blue-700 mb-6">Sistem Standarisasi Pelayanan Kapal</h4>
+                            </span>
                             
-                            <p class="text-slate-700 leading-relaxed mb-6">
-                                Berperan dan berpartisipasi dalam validasi sistem standarisasi pelayanan kapal berskala nasional yang menjangkau lebih dari <strong>90 cabang pelabuhan PELINDO di seluruh Indonesia</strong>. 
-                            </p>
-                            <p class="text-slate-700 leading-relaxed">
-                                Sebagai bagian dari Proyek Strategis Nasional (PSN), saya memastikan keberhasilan transisi dan pembaruan sistem dari <a href="https://phinnisi-uat.pelindo.co.id/login" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-medium underline decoration-blue-300 underline-offset-2 transition-colors">fase Phinisi awal</a> hingga mencapai <a href="https://phinnisi.ilcs.xyz/en" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800 underline decoration-blue-300 underline-offset-2 transition-colors">Phinisi v3</a>, dengan fokus utama pada integritas fitur dan kemudahan pengguna.
+                            <h3 class="text-4xl font-extrabold text-cozy-text mb-2 tracking-tight">Phinnisi</h3>
+                            <p data-i18n="proj_subtitle_phin" class="text-blue-600 font-semibold text-lg mb-8">Sistem Standarisasi Pelayanan Kapal</p>
+                            
+                            <p data-i18n="proj_desc_1" class="text-cozy-text mb-6 leading-relaxed font-medium">
+                                Berperan dan berpartisipasi dalam validasi sistem standarisasi pelayanan kapal berskala nasional yang menjangkau lebih dari 
+                                <strong class="text-cozy-text font-extrabold">90 cabang pelabuhan PELINDO di seluruh Indonesia</strong>.
                             </p>
                             
-                            <div class="mt-8 flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white text-slate-600 rounded-md text-sm border border-slate-200 shadow-sm">Sistem Maritim</span>
-                                <span class="px-3 py-1 bg-white text-slate-600 rounded-md text-sm border border-slate-200 shadow-sm">Validasi Nasional</span>
-                                <span class="px-3 py-1 bg-white text-slate-600 rounded-md text-sm border border-slate-200 shadow-sm">Integrasi Fitur</span>
-                                <span class="px-3 py-1 bg-white text-slate-600 rounded-md text-sm border border-slate-200 shadow-sm">UX Focus</span>
+                            <p data-i18n="proj_desc_2" class="text-cozy-text mb-10 leading-relaxed font-medium">
+                                Sebagai bagian dari Proyek Strategis Nasional (PSN), saya memastikan keberhasilan transisi dan pembaruan sistem dari 
+                                <a href="https://phinnisi-uat.pelindo.co.id/login" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline underline-offset-4 hover:text-blue-800 transition-colors">fase Phinisi awal</a> hingga mencapai 
+                                <a href="https://phinnisi.ilcs.xyz/en" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold underline underline-offset-4 hover:text-blue-800 transition-colors">Phinisi v3</a>, dengan fokus utama pada integritas fitur dan kemudahan pengguna.
+                            </p>
+                            
+                            <!-- Badges Outline -->
+                            <div class="flex flex-wrap gap-3">
+                                <span data-i18n="tag_maritim" class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium shadow-sm">Sistem Maritim</span>
+                                <span data-i18n="tag_validasi" class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium shadow-sm">Validasi Nasional</span>
+                                <span data-i18n="tag_integrasi" class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium shadow-sm">Integrasi Fitur</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium shadow-sm">UX Focus</span>
                             </div>
                         </div>
                         
-                        <div class="md:col-span-2 bg-blue-600 p-8 md:p-12 flex flex-col justify-center text-white relative overflow-hidden">
-                            <div class="absolute -right-10 -top-10 opacity-10">
-                                <i data-lucide="code" style="width: 250px; height: 250px;"></i>
+                        <!-- Bagian Kanan (Biru Solid) -->
+                        <div class="xl:w-[45%] bg-blue-600 p-8 md:p-10 text-white relative overflow-hidden flex flex-col justify-center">
+                            <!-- Background Decoration -->
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-10 flex text-9xl pointer-events-none">
+                                <i data-lucide="chevron-left" class="w-64 h-64 -mr-20"></i>
+                                <i data-lucide="chevron-right" class="w-64 h-64"></i>
                             </div>
-                            <div class="relative z-10">
-                                <h5 class="text-xl font-bold mb-4 border-b border-blue-400 pb-2">Detail Peran</h5>
-                                <ul class="space-y-4">
-                                    <li class="flex gap-3">
-                                        <i data-lucide="check-circle-2" class="text-blue-200 shrink-0 w-5 h-5"></i>
-                                        <span>Validasi sistem di 90+ pelabuhan Indonesia</span>
-                                    </li>
-                                    <li class="flex gap-3">
-                                        <i data-lucide="check-circle-2" class="text-blue-200 shrink-0 w-5 h-5"></i>
-                                        <span>Mengawal transisi sistem ke versi V3</span>
-                                    </li>
-                                    <li class="flex gap-3">
-                                        <i data-lucide="check-circle-2" class="text-blue-200 shrink-0 w-5 h-5"></i>
-                                        <span>Memastikan integritas operasional maritim</span>
-                                    </li>
-                                </ul>
-                                <div class="mt-8 pt-6 border-t border-blue-500">
-                                    <span class="text-blue-200 text-sm block mb-1">Periode Proyek</span>
-                                    <span class="font-semibold text-lg">Agustus 2022 - Saat ini</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SKILLS & EDUCATION SECTION -->
-        <section id="skills" class="py-20 bg-slate-50">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 gap-16">
-                    
-                    <!-- SKILLS -->
-                    <div>
-                        <div class="mb-10">
-                            <h2 class="text-3xl font-bold text-slate-900 inline-flex items-center gap-2">
-                                <i data-lucide="code" class="text-blue-600 w-8 h-8"></i> Keahlian
-                            </h2>
-                            <div class="w-16 h-1 bg-blue-600 mt-4 rounded-full"></div>
-                        </div>
-
-                        <div class="space-y-8">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div> Metodologi
-                                </h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">SDLC</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Agile/Scrum</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Product Requirement Document</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Business Process Modelling</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Requirement Gathering</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Stakeholder Management</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                    <div class="w-2 h-2 bg-green-500 rounded-full"></div> Tools Pendukung
-                                </h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Google Sheet</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Lark (Project Management)</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Playwright</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                    <div class="w-2 h-2 bg-purple-500 rounded-full"></div> Soft Skills
-                                </h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Ketelitian Detail</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Analisis Masalah</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Komunikasi Tim</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Dokumentasi Teknis</span>
-                                    <span class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm cursor-default">Analisis Kebutuhan</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- EDUCATION -->
-                    <div>
-                        <div class="mb-10">
-                            <h2 class="text-3xl font-bold text-slate-900 inline-flex items-center gap-2">
-                                <i data-lucide="graduation-cap" class="text-blue-600 w-8 h-8"></i> Pendidikan
-                            </h2>
-                            <div class="w-16 h-1 bg-blue-600 mt-4 rounded-full"></div>
-                        </div>
-
-                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -z-0"></div>
                             
                             <div class="relative z-10">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
-                                        <i data-lucide="graduation-cap" class="w-8 h-8"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Universitas YARSI</h3>
-                                        <p class="text-blue-600 font-medium">Teknik Informatika</p>
-                                    </div>
-                                </div>
+                                <h4 data-i18n="role_detail" class="text-2xl font-bold mb-8">Detail Peran</h4>
+                                <ul class="space-y-6 mb-12">
+                                    <li class="flex items-start gap-4">
+                                        <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0 mt-0.5 text-blue-200"></i>
+                                        <span data-i18n="role_1" class="font-medium text-lg leading-snug">Validasi sistem di 90+ pelabuhan Indonesia</span>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0 mt-0.5 text-blue-200"></i>
+                                        <span data-i18n="role_2" class="font-medium text-lg leading-snug">Mengawal transisi sistem ke versi V3</span>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0 mt-0.5 text-blue-200"></i>
+                                        <span data-i18n="role_3" class="font-medium text-lg leading-snug">Memastikan integritas operasional maritim</span>
+                                    </li>
+                                </ul>
                                 
-                                <div class="space-y-4">
-                                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-                                        <span class="text-slate-500">Periode</span>
-                                        <span class="font-medium text-slate-800">Sept 2017 - Nov 2021</span>
+                                <div class="pt-8 border-t border-blue-400/50">
+                                    <p data-i18n="proj_period" class="text-blue-200 text-sm mb-2 font-medium">Periode Proyek</p>
+                                    <p data-i18n="proj_period_val" class="font-extrabold text-xl tracking-wide">Agustus 2022 - Saat ini</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Galeri: Phinnisi Fase Awal -->
+                    <div class="pt-8">
+                        <h3 data-i18n="gal_awal" class="text-2xl font-bold text-cozy-text mb-8 border-b border-gray-100 pb-4">Galeri: Phinnisi Fase Awal</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                            <!-- Awal 1 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/dashboardv2.jpg" alt="Phinnisi Fase Awal 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/dashboardv2.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_awal_1_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Tampilan Dashboard</h3>
+                                        <p data-i18n="gal_awal_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Fase Awal</p>
                                     </div>
-                                    <div class="flex items-center justify-between pb-2">
-                                        <span class="text-slate-500">IPK Akhir</span>
-                                        <span class="font-bold text-xl text-slate-900">3.23</span>
+                                    <span class="text-cozy-text font-bold text-sm">2022-2026</span>
+                                </div>
+                            </div>
+
+                            <!-- Awal 2 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/pelayananv2.jpg" alt="Phinnisi Fase Awal 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/pelayananv2.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_awal_2_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Modul Pelayanan</h3>
+                                        <p data-i18n="gal_awal_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Fase Awal</p>
                                     </div>
+                                    <span class="text-cozy-text font-bold text-sm">2022-2026</span>
+                                </div>
+                            </div>
+
+                            <!-- Awal 3 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/landingpagev2.jpg" alt="Phinnisi Fase Awal 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/landingpagev2.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_awal_3_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Form Registrasi</h3>
+                                        <p data-i18n="gal_awal_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Fase Awal</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2022-2026</span>
+                                </div>
+                            </div>
+
+                            <!-- Awal 4 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/operasionalv2.jpg" alt="Phinnisi Fase Awal 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/operasionalv2.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_awal_4_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Laporan Operasional</h3>
+                                        <p data-i18n="gal_awal_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Fase Awal</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2022-2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Galeri: Phinnisi v3 -->
+                    <div class="pt-12">
+                        <h3 data-i18n="gal_v3" class="text-2xl font-bold text-cozy-text mb-8 border-b border-gray-100 pb-4">Galeri: Phinnisi v3</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                            <!-- v3 1 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/dashboardv3.jpg" alt="Phinnisi v3 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/dashboardv3.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_v3_1_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Dashboard v3</h3>
+                                        <p data-i18n="gal_v3_1_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Pembaruan Antarmuka</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2026</span>
+                                </div>
+                            </div>
+
+                            <!-- v3 2 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/pelayananv3.jpg" alt="Phinnisi v3 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/pelayananv3.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_v3_2_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Sistem Standarisasi</h3>
+                                        <p data-i18n="gal_v3_2_desc" class="text-sm text-cozy-muted font-medium line-clamp-1">Optimasi Sistem</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2026</span>
+                                </div>
+                            </div>
+
+                            <!-- v3 3 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/integrasiv3.jpg" alt="Phinnisi v3 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/integrasiv3.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_v3_3_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Integrasi Data</h3>
+                                        <p class="text-sm text-cozy-muted font-medium line-clamp-1">Phinnisi v3</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2026</span>
+                                </div>
+                            </div>
+
+                            <!-- v3 4 -->
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gray-50 border border-gray-100 relative">
+                                    <img src="assets/operasiv3.jpg" alt="Phinnisi v3 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <span class="absolute inset-0 flex items-center justify-center text-cozy-muted font-bold text-sm text-center px-4 -z-10 group-hover:opacity-0">assets/operasiv3.jpg</span>
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                                </div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 data-i18n="gal_v3_4_title" class="text-xl font-extrabold text-cozy-text tracking-wider mb-1">Pelayanan Kapal</h3>
+                                        <p class="text-sm text-cozy-muted font-medium line-clamp-1">Phinnisi v3</p>
+                                    </div>
+                                    <span class="text-cozy-text font-bold text-sm">2026</span>
                                 </div>
                             </div>
                         </div>
@@ -373,39 +504,115 @@
                 </div>
             </div>
         </section>
+
+        <!-- EDUCATION & SKILLS GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-20">
+            <!-- EDUCATION CARD -->
+            <section class="lg:col-span-4 bg-white rounded-4xl p-8 md:p-12 border border-gray-100 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="w-16 h-16 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-center mb-8">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 text-cozy-text"></i>
+                    </div>
+                    <h2 data-i18n="edu_title" class="text-2xl font-extrabold text-cozy-text mb-6 tracking-tight">Pendidikan</h2>
+                    
+                    <h3 class="text-xl font-bold text-cozy-text">Universitas YARSI</h3>
+                    <p data-i18n="edu_major" class="text-lg text-cozy-accent font-semibold mb-4">Teknik Informatika</p>
+                    
+                    <p class="text-cozy-muted font-medium mb-1">September 2017 - November 2021</p>
+                </div>
+                
+                <div class="mt-8 pt-8 border-t border-gray-100">
+                    <p data-i18n="edu_gpa" class="text-sm text-cozy-muted font-semibold mb-1">IPK Akhir</p>
+                    <p class="text-4xl font-extrabold text-cozy-text">3.23</p>
+                </div>
+            </section>
+            
+            <!-- SKILLS CARD -->
+            <section id="skills" class="lg:col-span-8 bg-white rounded-4xl p-8 md:p-12 border border-gray-100 shadow-sm scroll-mt-32">
+                <h2 data-i18n="skills_title" class="text-3xl font-extrabold text-cozy-text mb-10 tracking-tight">Keahlian & Tools</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="md:col-span-2">
+                        <h3 class="text-lg font-bold text-cozy-text mb-4 flex items-center gap-3">
+                            <span class="p-2 bg-blue-50 text-blue-600 rounded-xl"><i data-lucide="workflow" class="w-5 h-5"></i></span> <span data-i18n="skills_meth">Metodologi</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">SDLC</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Agile/Scrum</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Product Requirement Document</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Business Process Modelling</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Requirement Gathering</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-cozy-text mb-4 flex items-center gap-3">
+                            <span class="p-2 bg-green-50 text-green-600 rounded-xl"><i data-lucide="wrench" class="w-5 h-5"></i></span> <span data-i18n="skills_tools">Tools Pendukung</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Google Sheet</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Lark</span>
+                            <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Playwright</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-cozy-text mb-4 flex items-center gap-3">
+                            <span class="p-2 bg-purple-50 text-purple-600 rounded-xl"><i data-lucide="users" class="w-5 h-5"></i></span> <span data-i18n="skills_soft">Soft Skills</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span data-i18n="skill_detail" class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Ketelitian Detail</span>
+                            <span data-i18n="skill_prob" class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Analisis Masalah</span>
+                            <span data-i18n="skill_comm" class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Komunikasi Tim</span>
+                            <span data-i18n="skill_doc" class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-semibold text-cozy-text">Dokumentasi Teknis</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <h2 class="text-2xl font-bold text-white mb-2 tracking-tighter">Prasetio Tri Irawan.</h2>
-                    <p class="text-slate-400 max-w-sm">
-                        Business Analyst & QA Engineer yang berfokus pada kualitas dan standarisasi sistem operasional maritim.
-                    </p>
-                </div>
-                
-                <div class="md:text-right space-y-3">
-                    <a href="mailto:prasetioirawan6@gmail.com" class="flex items-center md:justify-end gap-2 hover:text-white transition-colors">
-                        <i data-lucide="mail" class="w-4 h-4"></i> prasetioirawan6@gmail.com
-                    </a>
-                    <p class="flex items-center md:justify-end gap-2">
-                        <i data-lucide="phone" class="w-4 h-4"></i> 0882 2587 4217
-                    </p>
-                    <a href="https://www.linkedin.com/in/prasetio-irawan/" target="_blank" rel="noopener noreferrer" class="flex items-center md:justify-end gap-2 hover:text-white transition-colors">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn Profile
-                    </a>
-                </div>
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+        <div class="bg-cozy-text text-white rounded-4xl p-8 md:p-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+            <div>
+                <h2 data-i18n="footer_collab" class="text-3xl font-extrabold tracking-tight mb-2">Mari berkolaborasi.</h2>
+                <p class="text-gray-400 font-medium">Business Analyst & QA Engineer</p>
             </div>
             
-            <div class="mt-12 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
-                <p>&copy; <span id="year"></span> Prasetio Tri Irawan. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="mailto:prasetioirawan6@gmail.com" class="p-4 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full transition-colors backdrop-blur-md">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/prasetio-irawan/" target="_blank" rel="noopener noreferrer" class="p-4 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full transition-colors backdrop-blur-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
             </div>
+        </div>
+        <div class="text-center mt-6 text-cozy-muted font-medium text-sm">
+            <p>&copy; <span id="year"></span> Prasetio Tri Irawan. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript for Interactivity -->
+    <!-- Video Modal Pop-up -->
+    <div id="video-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div id="video-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity cursor-pointer"></div>
+        <div class="relative bg-white rounded-3xl overflow-hidden shadow-2xl w-full max-w-4xl z-10 transition-transform duration-300 transform scale-100">
+            <button id="close-video-btn" class="absolute top-4 right-4 z-20 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors backdrop-blur-md">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="aspect-video bg-black w-full flex items-center justify-center">
+                <video id="automation-video" class="w-full h-full outline-none" controls preload="metadata">
+                    <source src="assets/Playwright.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity & Translation -->
     <script>
         // Set Year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
@@ -419,47 +626,228 @@
         
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
         });
 
-        // Close mobile menu when clicking a link
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
             });
         });
 
         // Active State on Scroll
         const sections = document.querySelectorAll('section');
         const desktopLinks = document.querySelectorAll('.desktop-link');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
 
         window.addEventListener('scroll', () => {
             let current = '';
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 100) {
+                if (pageYOffset >= sectionTop - 200) {
                     current = section.getAttribute('id');
                 }
             });
 
-            // Update Desktop Links
             desktopLinks.forEach(link => {
-                link.classList.remove('text-blue-700', 'border-b-2', 'border-blue-600');
-                link.classList.add('text-slate-600');
+                link.classList.remove('bg-white', 'shadow-sm', 'text-cozy-text');
+                link.classList.add('text-cozy-muted');
+                
                 if (link.getAttribute('href').includes(current) && current !== '') {
-                    link.classList.remove('text-slate-600');
-                    link.classList.add('text-blue-700', 'border-b-2', 'border-blue-600');
+                    link.classList.remove('text-cozy-muted');
+                    link.classList.add('bg-white', 'shadow-sm', 'text-cozy-text');
                 }
             });
+        });
 
-            // Update Mobile Links
-            mobileLinks.forEach(link => {
-                link.classList.remove('bg-blue-50', 'text-blue-700');
-                link.classList.add('text-slate-600');
-                if (link.getAttribute('href').includes(current) && current !== '') {
-                    link.classList.remove('text-slate-600');
-                    link.classList.add('bg-blue-50', 'text-blue-700');
+        // Video Modal Logic
+        const videoModal = document.getElementById('video-modal');
+        const openVideoBtn = document.getElementById('open-video-btn');
+        const closeVideoBtn = document.getElementById('close-video-btn');
+        const videoBackdrop = document.getElementById('video-backdrop');
+        const automationVideo = document.getElementById('automation-video');
+
+        openVideoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            videoModal.classList.remove('hidden');
+        });
+
+        const closeModal = () => {
+            videoModal.classList.add('hidden');
+            automationVideo.pause();
+            automationVideo.currentTime = 0;
+        };
+
+        closeVideoBtn.addEventListener('click', closeModal);
+        videoBackdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- I18N (TRANSLATION) LOGIC ---
+        const translations = {
+            id: {
+                nav_home: "Beranda",
+                nav_profile: "Profil",
+                nav_exp: "Pengalaman",
+                nav_proj: "Proyek",
+                nav_skills: "Keahlian",
+                hero_hello: "Halo, Saya",
+                hero_desc: "Saya sangat bersemangat dan berdedikasi terhadap pekerjaan saya.",
+                btn_about: "Tentang Saya",
+                exp_years: "3+ Tahun Pengalaman",
+                loc_title: "Lokasi",
+                prof_title: "Profil Profesional",
+                prof_desc_1: "Sebagai <strong class=\"text-white\">Business Analyst</strong> dalam sistem standarisasi di industri maritim dengan fokus pada kualitas, kemudahan pengguna, dan kepatuhan regulasi. Memiliki keahlian dalam perencanaan fitur dan integrasi menggunakan metode <strong class=\"text-white\">Business Process Modelling</strong> untuk standarisasi operasional maritim dan stabilitas sistem.",
+                prof_desc_2: "Berkomitmen pada detail analisis kebutuhan dan sinergi tim. Berbekal pengalaman kuat sebagai <strong class=\"text-white\">QA Engineer</strong>, saya memastikan setiap spesifikasi bisnis memiliki kriteria yang jelas, terukur, dan dapat diuji.",
+                exp_title: "Pengalaman Kerja",
+                exp_subtitle: "Riwayat karir profesional saya.",
+                contract_1: "(Kontrak)", contract_2: "(Kontrak)", contract_3: "(Kontrak)",
+                job1_date: "Agustus 2025 - Saat ini",
+                job1_desc1: "Bertanggung jawab dalam merancang dan mendefinisikan kebutuhan bisnis untuk sistem standarisasi pelayanan kapal (Phinnisi) di lingkungan operasional maritim atau operasional pelayanan kapal.",
+                job1_desc2: "Menjembatani komunikasi antara pemangku kepentingan bisnis dan tim teknis untuk memastikan setiap fitur baru pada sistem Phinnisi sesuai dengan regulasi kepelabuhanan dan standar operasional maritim.",
+                job1_desc3: "Melakukan analisis mendalam terhadap alur kerja pelayanan kapal guna menghasilkan dokumentasi teknis dan desain proses bisnis yang optimal dalam bentuk Product Requirement Document.",
+                job1_desc4: "Memanfaatkan latar belakang sebagai QA Engineer untuk memastikan bahwa setiap spesifikasi bisnis yang disusun memiliki kriteria penerimaan (acceptance criteria) yang jelas, terukur, dan dapat diuji secara teknis.",
+                job2_date: "Agustus 2022 - Agustus 2025",
+                job2_desc1: "Berperan dalam mengeksekusi dan melaporkan hasil pengujian proyek pada tahap SIT (System Integration Testing) dan UAT (User Acceptance Testing).",
+                job2_desc2: "Membangun, memelihara, dan menjalankan skrip Automation Test menggunakan framework Playwright untuk mempercepat siklus pengujian.",
+                job2_desc3: "Berhasil menganalisis dan memeriksa validitas data secara mendetail menggunakan berbagai testing tools guna mengidentifikasi bug atau ketidaksesuaian sistem terhadap skenario test case.",
+                job2_desc4: "Melakukan eskalasi laporan bug dengan data pendukung yang komprehensif secara cepat demi memastikan proyek selesai tepat waktu sesuai target.",
+                btn_video: "Contoh Penerapan Automation Test pada Phinnisi",
+                job3_date: "Maret 2022 - Agustus 2022",
+                job3_desc1: "Melakukan analisis dan verifikasi data manual dengan ketelitian untuk menjamin akurasi laporan.",
+                job3_desc2: "Menyusun dokumentasi temuan error atau ketidaksesuaian data berdasarkan skenario pengujian yang telah ditetapkan.",
+                proj_title: "Proyek<br>Unggulan",
+                btn_see_all: "Lihat Semua",
+                proj_tag_psn: "Proyek Strategis Nasional",
+                proj_subtitle_phin: "Sistem Standarisasi Pelayanan Kapal",
+                proj_desc_1: "Berperan dan berpartisipasi dalam validasi sistem standarisasi pelayanan kapal berskala nasional yang menjangkau lebih dari <strong class=\"text-cozy-text font-extrabold\">90 cabang pelabuhan PELINDO di seluruh Indonesia</strong>.",
+                proj_desc_2: "Sebagai bagian dari Proyek Strategis Nasional (PSN), saya memastikan keberhasilan transisi dan pembaruan sistem dari <a href=\"https://phinnisi-uat.pelindo.co.id/login\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-600 underline underline-offset-4 hover:text-blue-800 transition-colors\">fase Phinisi awal</a> hingga mencapai <a href=\"https://phinnisi.ilcs.xyz/en\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-600 font-bold underline underline-offset-4 hover:text-blue-800 transition-colors\">Phinisi v3</a>, dengan fokus utama pada integritas fitur dan kemudahan pengguna.",
+                tag_maritim: "Sistem Maritim", tag_validasi: "Validasi Nasional", tag_integrasi: "Integrasi Fitur",
+                role_detail: "Detail Peran",
+                role_1: "Validasi sistem di 90+ pelabuhan Indonesia",
+                role_2: "Mengawal transisi sistem ke versi V3",
+                role_3: "Memastikan integritas operasional maritim",
+                proj_period: "Periode Proyek",
+                proj_period_val: "Agustus 2022 - Saat ini",
+                gal_awal: "Galeri: Phinnisi Fase Awal",
+                gal_awal_desc: "Fase Awal (UAT)",
+                gal_awal_1_title: "Tampilan Dashboard",
+                gal_awal_2_title: "Modul Pelayanan",
+                gal_awal_3_title: "Form Registrasi",
+                gal_awal_4_title: "Laporan Operasional",
+                gal_v3: "Galeri: Phinnisi v3",
+                gal_v3_1_title: "Dashboard v3",
+                gal_v3_1_desc: "Pembaruan Antarmuka",
+                gal_v3_2_title: "Sistem Standarisasi",
+                gal_v3_2_desc: "Optimasi Sistem",
+                gal_v3_3_title: "Integrasi Data",
+                gal_v3_4_title: "Pelayanan Kapal",
+                edu_title: "Pendidikan",
+                edu_major: "Teknik Informatika",
+                edu_gpa: "IPK Akhir",
+                skills_title: "Keahlian & Tools",
+                skills_meth: "Metodologi",
+                skills_tools: "Tools Pendukung",
+                skills_soft: "Soft Skills",
+                skill_detail: "Ketelitian Detail",
+                skill_prob: "Analisis Masalah",
+                skill_comm: "Komunikasi Tim",
+                skill_doc: "Dokumentasi Teknis",
+                footer_collab: "Mari berkolaborasi."
+            },
+            en: {
+                nav_home: "Home",
+                nav_profile: "Profile",
+                nav_exp: "Experience",
+                nav_proj: "Projects",
+                nav_skills: "Skills",
+                hero_hello: "Hello, I'm",
+                hero_desc: "I am very passionate and dedicated to my work.",
+                btn_about: "About Me",
+                exp_years: "3+ Years Experience",
+                loc_title: "Location",
+                prof_title: "Professional Profile",
+                prof_desc_1: "As a <strong class=\"text-white\">Business Analyst</strong> in the maritime industry standardization system with a focus on quality, user-friendliness, and regulatory compliance. Skilled in feature planning and integration using <strong class=\"text-white\">Business Process Modelling</strong> methods for maritime operational standardization and system stability.",
+                prof_desc_2: "Committed to detail in requirements analysis and team synergy. With a strong background as a <strong class=\"text-white\">QA Engineer</strong>, I ensure every business specification has clear, measurable, and technically testable acceptance criteria.",
+                exp_title: "Work Experience",
+                exp_subtitle: "My professional career history.",
+                contract_1: "(Contract)", contract_2: "(Contract)", contract_3: "(Contract)",
+                job1_date: "August 2025 - Present",
+                job1_desc1: "Responsible for designing and defining business requirements for the vessel service standardization system (Phinnisi) in the maritime operational environment.",
+                job1_desc2: "Bridging communication between business stakeholders and technical teams to ensure every new feature complies with port regulations and maritime operational standards.",
+                job1_desc3: "Conducting in-depth analysis of vessel service workflows to produce technical documentation and optimal business process designs (Product Requirement Document).",
+                job1_desc4: "Utilizing background as a QA Engineer to ensure every compiled business specification has clear, measurable, and technically testable acceptance criteria.",
+                job2_date: "August 2022 - August 2025",
+                job2_desc1: "Executing and reporting project test results during SIT (System Integration Testing) and UAT (User Acceptance Testing) phases.",
+                job2_desc2: "Building, maintaining, and executing Automation Test scripts using the Playwright framework to accelerate testing cycles.",
+                job2_desc3: "Successfully analyzing and verifying data validity in detail using various testing tools to identify bugs or system discrepancies against test scenarios.",
+                job2_desc4: "Escalating bug reports with comprehensive supporting data swiftly to ensure projects are completed on schedule.",
+                btn_video: "Automation Test Implementation on Phinnisi",
+                job3_date: "March 2022 - August 2022",
+                job3_desc1: "Conducting manual data analysis and verification with precision to guarantee report accuracy.",
+                job3_desc2: "Compiling documentation of error findings or data discrepancies based on established test scenarios.",
+                proj_title: "Featured<br>Projects",
+                btn_see_all: "View All",
+                proj_tag_psn: "National Strategic Project",
+                proj_subtitle_phin: "Vessel Service Standardization System",
+                proj_desc_1: "Participated in the validation of the national scale vessel service standardization system reaching more than <strong class=\"text-cozy-text font-extrabold\">90 PELINDO port branches throughout Indonesia</strong>.",
+                proj_desc_2: "As part of the National Strategic Project (PSN), I ensured the successful transition and system update from the <a href=\"https://phinnisi-uat.pelindo.co.id/login\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-600 underline underline-offset-4 hover:text-blue-800 transition-colors\">initial Phinisi phase</a> to reaching <a href=\"https://phinnisi.ilcs.xyz/en\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-600 font-bold underline underline-offset-4 hover:text-blue-800 transition-colors\">Phinisi v3</a>, focusing on feature integrity and usability.",
+                tag_maritim: "Maritime System", tag_validasi: "National Validation", tag_integrasi: "Feature Integration",
+                role_detail: "Role Details",
+                role_1: "System validation in 90+ Indonesian ports",
+                role_2: "Overseeing system transition to V3 version",
+                role_3: "Ensuring maritime operational integrity",
+                proj_period: "Project Period",
+                proj_period_val: "August 2022 - Present",
+                gal_awal: "Gallery: Initial Phase Phinnisi",
+                gal_awal_desc: "Initial Phase (UAT)",
+                gal_awal_1_title: "Dashboard Interface",
+                gal_awal_2_title: "Service Module",
+                gal_awal_3_title: "Registration Form",
+                gal_awal_4_title: "Operational Report",
+                gal_v3: "Gallery: Phinnisi v3",
+                gal_v3_1_title: "Dashboard v3",
+                gal_v3_1_desc: "Interface Update",
+                gal_v3_2_title: "Standardization System",
+                gal_v3_2_desc: "System Optimization",
+                gal_v3_3_title: "Data Integration",
+                gal_v3_4_title: "Vessel Service",
+                edu_title: "Education",
+                edu_major: "Informatics Engineering",
+                edu_gpa: "Final GPA",
+                skills_title: "Skills & Tools",
+                skills_meth: "Methodologies",
+                skills_tools: "Supporting Tools",
+                skills_soft: "Soft Skills",
+                skill_detail: "Attention to Detail",
+                skill_prob: "Problem Analysis",
+                skill_comm: "Team Communication",
+                skill_doc: "Technical Documentation",
+                footer_collab: "Let's collaborate."
+            }
+        };
+
+        let currentLang = 'id';
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+        const langLabel = document.getElementById('lang-label');
+
+        langToggleBtn.addEventListener('click', () => {
+            // Ubah bahasa
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            
+            // Update teks tombol
+            langLabel.innerText = currentLang === 'id' ? 'ID' : 'EN';
+            
+            // Loop semua elemen yang memiliki atribut data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
                 }
             });
         });
